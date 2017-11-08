@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import ContactInfo from './ContactInfo';
 import ContactDetails from './ContactDetails';
+import update from 'react-addons-update';
+import ContactCreate from './ContactCreate';
 
 export default class Contact extends Component{
     constructor(props) {
@@ -17,6 +19,9 @@ export default class Contact extends Component{
 
       this.handleChange = this.handleChange.bind(this);
       this.handleClick = this.handleClick.bind(this);
+      this.hanldeCreate = this.hanldeCreate.bind(this);
+      this.hanldeRemove = this.hanldeRemove.bind(this);
+      this.hanldeEdit = this.hanldeEdit.bind(this);
 
     }
     
@@ -34,10 +39,35 @@ export default class Contact extends Component{
         console.log(key, "is selected");
     }
 
+    hanldeCreate(contact) {
+        console.log(contact);
+        this.setState({
+           contactData : update(this.state.contactData, { $push: [ contact ] })
+        });
+    }
+
+    hanldeRemove() {
+        if(this.state.selectedKey < 0){
+            return;
+        }
+        this.setState({
+            contactData : update(this.state.contactData, { $splice: [ [ this.state.selectedKey, 1 ] ] }),
+            selectedKey: -1
+        })
+    }
+
+  
+    hanldeEdit(name, phone){
+    this.setState({
+     contactData: update(this.state.contactData,{[this.state.selectedKey]:{name: {$set: name},
+        phone:{$set: phone}}})
+    })
+   }
+
     render() {
       
       const mapToComponent= (data) => {
-        
+      
             data.sort();
             data = data.filter((contact) =>{
                 
@@ -58,8 +88,11 @@ export default class Contact extends Component{
             onChange={this.handleChange}
          />
         <div>{mapToComponent(this.state.contactData)}</div>
-        <ContactDetails isSelected={this.state.selectedKey !== -1}
-                        contact={this.state.contactData[this.state.selectedKey]}/>
+                <ContactDetails isSelected={this.state.selectedKey !== -1}
+                                contact={this.state.contactData[this.state.selectedKey]}
+                                onRemove={this.hanldeRemove}
+                                />
+                <ContactCreate onCreate={this.hanldeCreate}/>
         </div>
       );
     }
