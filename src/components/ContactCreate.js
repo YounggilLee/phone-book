@@ -10,6 +10,7 @@ export default class ContactCreate extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleClick = this.handleClick.bind(this);
+        this.handlekeyPress = this.handlekeyPress.bind(this);
     }
 
 
@@ -30,6 +31,14 @@ export default class ContactCreate extends Component {
             name: '',
             phone: ''
         })
+
+        this.nameInput.focus();
+    }
+
+    handlekeyPress(e) {
+        if(e.charCode ===13) {
+            this.handleClick();
+        }
     }
 
     render() {
@@ -40,10 +49,12 @@ export default class ContactCreate extends Component {
                     <input type='text' name='name' placeholder='name' 
                     value={this.state.name}
                     onChange={this.handleChange}
+                    ref={(ref)=>{ this.nameInput = ref}}
                     />
                     <input type='text' name='phone' placeholder='phone'
                     value={this.state.phone}
                     onChange={this.handleChange}
+                    onKeyPress={this.handlekeyPress}
                     />
                 </p>
                 <button onClick={this.handleClick}>Create</button>
