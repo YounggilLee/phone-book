@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import ContactInfo from './ContactInfo';
 import ContactDetails from './ContactDetails';
-import update from 'react-addons-update';
 import ContactCreate from './ContactCreate';
+import update from 'react-addons-update';
 
 export default class Contact extends Component{
     constructor(props) {
@@ -11,9 +11,11 @@ export default class Contact extends Component{
           selectedKey: -1,
           keyword: '',
         contactData:[
-          {name:'A', phone:'000-0000-0000'},
-           {name:'B', phone:'111-0000-0000'},
-           {name:'C', phone:'222-0000-0000'}
+           {name:'Merry', phone:'000-0000-0000'},
+           {name:'Bill', phone:'111-0000-0000'},
+           {name:'Scott', phone:'333-0000-0000'},
+           {name:'Jack', phone:'444-0000-0000'}
+           
         ]
       }
 
@@ -24,6 +26,25 @@ export default class Contact extends Component{
       this.hanldeEdit = this.hanldeEdit.bind(this);
 
     }
+
+
+    ///Local storage 
+    // componentWillMount() {
+    //     const contactData = localStorage.contactData;
+
+    //     if(contactData) {
+    //         this.setState({
+    //             contactData: JSON.parse(contactData)
+    //         })
+    //     }
+    // }
+
+    // componentDidupdate(prevProps, prevState) {
+    //     if(JSON.stringify(prevProps.contactData) !== JSON.stringify(this.state.contactData)){
+    //         localStorage.contactData = JSON.stringify(this.state.contactData);
+    //     }
+    // }
+
     
     handleChange(e) {
         this.setState({
