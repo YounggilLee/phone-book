@@ -14,7 +14,8 @@ export default class Contact extends Component{
            {name:'Merry', phone:'000-0000-0000'},
            {name:'Bill', phone:'111-0000-0000'},
            {name:'Scott', phone:'333-0000-0000'},
-           {name:'Jack', phone:'444-0000-0000'}
+           {name:'Jack', phone:'444-0000-0000'},
+           {name:'Sam', phone:'555-0000-0000'}
            
         ]
       }
